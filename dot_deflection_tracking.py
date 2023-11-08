@@ -9,7 +9,7 @@ import numpy as np
 import cv2 as cv
 import math
 import time
-# import matplotlib.pyplot as plt
+# import matplotlib
 import pickle
 import pyfirmata
 import serial.tools.list_ports
@@ -19,6 +19,7 @@ from imutils import perspective
 from imutils import contours
 from scipy.spatial import distance as dist
 from PIL import Image
+import os
 
 '''     FUNCTIONS       '''
 
@@ -218,9 +219,29 @@ objp = objp*square_size
 
 '''     PROGRAM     '''
 
+time.sleep(5)
 
+images = []
 
+for image in os.listdir('camera_images\\'):
+    images.append(cv.imread(f'camera_images\\{image}'))
 
+refWidth = 10
+
+xList, yList, def1Images = ShapeDet(images, refWidth)
+
+xArr = np.array(xList)
+yArr = np.array(yList)
+square = math.ceil(math.sqrt(len(images)))
+
+# figure, axis = matplotlib.pyplot.subplot(square, square)
+# P = []
+
+# for i in range(square):
+#     for j in range(square):
+#         if (k < len(images)):
+#             axis[i, j].plot(xArr[k], -yArr[k], '.')
+#         k = k + 1
 
 
 

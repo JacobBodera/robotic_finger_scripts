@@ -5,5 +5,5 @@ camera = cv.VideoCapture(1)
 
 
 value, image = camera.read()
-cv.imwrite('test.png', image)
+cv.imwrite('test_images/test.png', image)
 del(camera)
