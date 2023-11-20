@@ -62,6 +62,7 @@ def ShapeDet(images, ref_Width):
     YList = []
 
     for i in range(len(images)):
+        print(i)
         image = images[i]
         lineLen.append([])
 
@@ -101,28 +102,28 @@ def ShapeDet(images, ref_Width):
         edged = cv.dilate(edged, None, iterations=1)
         edged = cv.erode(edged, None, iterations=1)
         # find contours in the edge map
-        contours = cv.findContours(edged.copy(), cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
-        contours = imutils.grab_contours(contours)
+        cnts = cv.findContours(edged.copy(), cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+        cnts = imutils.grab_contours(cnts)
         # Sort contours from left->right and initialize calibration variable
-        (contours, _) = contours.sort_contours(contours)
+        (cnts, _) = contours.sort_contours(cnts)
         pixelsPerMetric = None
 
         xMidPoints = []
         yMidpoints = []
         original = image.copy()
-        cv.imshow("Image", original)
+        # cv.imshow("Image", original)
 
         k = 0
-        for contour in contours:
+        for cnt in cnts:
             # ignore if contour is not significantly large enough
-            if cv. contourArea(contour) < 50:
+            if cv. contourArea(cnt) < 50:
                 continue
 
             xMidPoints.append([])
             yMidpoints.append([])
 
             # compute the rotating bounding box of contour
-            box = cv.minAreaRect(contour)
+            box = cv.minAreaRect(cnt)
             box = cv.boxPoints(box)
             box = np.array(box, dtype="int")
 
@@ -183,7 +184,7 @@ def ShapeDet(images, ref_Width):
             cv.destroyAllWindows()
             k = k + 1
         
-        cv.imshow("image", original)
+        # cv.imshow("image", original)
         XList.append(xMidPoints)
         YList.append(yMidpoints)
 
@@ -223,16 +224,24 @@ time.sleep(5)
 
 images = []
 
-for image in os.listdir('camera_images\\'):
-    images.append(cv.imread(f'camera_images\\{image}'))
+for image in os.listdir('test_images\\'):
+    images.append(cv.imread(f'test_images\\{image}'))
 
 refWidth = 10
 
 xList, yList, def1Images = ShapeDet(images, refWidth)
 
-xArr = np.array(xList)
-yArr = np.array(yList)
-square = math.ceil(math.sqrt(len(images)))
+# xArr = np.array(xList)
+# yArr = np.array(yList)
+# square = math.ceil(math.sqrt(len(images)))
+
+print('get here')
+print(def1Images)
+
+imNum = 0
+for image in def1Images:
+    cv.imwrite(f'output_images/out_image{imNum}.png', image)
+    imNum += 1
 
 # figure, axis = matplotlib.pyplot.subplot(square, square)
 # P = []
