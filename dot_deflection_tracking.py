@@ -62,7 +62,7 @@ def ShapeDet(images, ref_Width):
     YList = []
 
     for i in range(len(images)):
-        print(i)
+        print(f'Processing image {i+1}')
         image = images[i]
         lineLen.append([])
 
@@ -235,14 +235,13 @@ xList, yList, def1Images = ShapeDet(images, refWidth)
 # yArr = np.array(yList)
 # square = math.ceil(math.sqrt(len(images)))
 
-print('get here')
-print(def1Images)
 
 imNum = 0
 for image in def1Images:
     cv.imwrite(f'output_images/out_image{imNum}.png', image)
     imNum += 1
 
+print('IMAGES TRACKED')
 # figure, axis = matplotlib.pyplot.subplot(square, square)
 # P = []
 

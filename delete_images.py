@@ -7,6 +7,6 @@ Description:    Deletes all of the images from in the camera_images directory th
 import os
 import glob
 
-files = glob.glob('camera_images/*')
+files = glob.glob('output_images/*')
 for f in files:
     os.remove(f)
