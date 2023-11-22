@@ -213,7 +213,7 @@ grid_height = 4
 grid_width = 7 
 square_size  = 5.0
 
-#----matrix to hold the coordinates of the checkerboard
+#matrix to hold the coordinates of the checkerboard
 objp = np.zeros((grid_height*grid_width,3), np.float32)
 objp[:,:2] = np.mgrid[0:grid_width, 0:grid_height].T.reshape(-1,2)
 objp = objp*square_size
@@ -222,19 +222,20 @@ objp = objp*square_size
 
 time.sleep(5)
 
+# read the images of the finger from the appropriate directory
 images = []
-
 for image in os.listdir('test_images\\'):
     images.append(cv.imread(f'test_images\\{image}'))
 
 refWidth = 10
 
+# run the detection function
 xList, yList, def1Images = ShapeDet(images, refWidth)
 
 print(xList)
 print(yList)
 
-
+# output the tracked images to the output directory
 imNum = 0
 for image in def1Images:
     cv.imwrite(f'output_images/out_image{imNum}.png', image)
