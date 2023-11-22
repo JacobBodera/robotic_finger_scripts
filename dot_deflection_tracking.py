@@ -231,9 +231,8 @@ refWidth = 10
 
 xList, yList, def1Images = ShapeDet(images, refWidth)
 
-# xArr = np.array(xList)
-# yArr = np.array(yList)
-# square = math.ceil(math.sqrt(len(images)))
+print(xList)
+print(yList)
 
 
 imNum = 0
@@ -242,14 +241,7 @@ for image in def1Images:
     imNum += 1
 
 print('IMAGES TRACKED')
-# figure, axis = matplotlib.pyplot.subplot(square, square)
-# P = []
 
-# for i in range(square):
-#     for j in range(square):
-#         if (k < len(images)):
-#             axis[i, j].plot(xArr[k], -yArr[k], '.')
-#         k = k + 1
 
 
 
